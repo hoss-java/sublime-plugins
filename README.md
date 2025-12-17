@@ -18,7 +18,7 @@ README -> https://github.com/hoss-java/sublime-plugins/blob/main/Maven/README.md
 Markdown colorize markdown and other tagged file formats but it does precede text on a new line (added by Enter) based on the current line.
 
 As I found it needs to code a new plugin, to add a new plug-in Tools → Developer → New Plug-in, then replace the code with the code below and save it with an appropriate name such as `Packages/MarkdownXtra/continue_markdown.py`
-```
+```python
 import re
 import sublime
 import sublime_plugin
@@ -80,7 +80,7 @@ I'm not good on spelling words. There are usually many misspell on my texts. Sub
 
 To add a function/key to switch between languages used by Sublime speller checker it needs to add a simple plug-in first
 > * `Packages/DicSwitcher/switch_dictionary.py`
->>```
+>>```python
 >>import sublime
 >>import sublime_plugin
 >>
@@ -93,7 +93,7 @@ To add a function/key to switch between languages used by Sublime speller checke
 >>```
 
 Now it needs to bind keys for languages, Preferences → Key bindings
-```
+```python
 [
     {
         "keys": ["ctrl+shift+s"],
@@ -111,12 +111,25 @@ Now it needs to bind keys for languages, Preferences → Key bindings
         "args": { "path": "Packages/Dictionaries/Swedish.dic" }
     }
 ]
-``````
+```
 
 OBS! All files packed in a folder named **DicSwitcher**
 
 ### Whitespaces
 Another problem for both texts and codes are whitespaces. As I know Sublime has an internal functionality to see and fixing white spaces but it seems it does not work in my case!
+
+```python
+[
+    {
+        "keys": ["ctrl+alt+w"] ,
+        "command": "show_white_space_cycle"
+    },
+    {
+        "keys": ["ctrl+alt+h"] ,
+        "command": "toggle_highlight_multi_spaces"
+    },
+]
+```
 
 OBS! All files packed in a folder named **WhiteSpaces**
 
