@@ -1,0 +1,17 @@
+[
+    {
+        "keys": ["ctrl+shift+s"],
+        "command": "toggle_setting",
+        "args": { "setting": "spell_check" }
+    },
+    {
+        "keys": ["ctrl+alt+1"],
+        "command": "set_dictionary",
+        "args": { "path": "Packages/Dictionaries/English (American).dic" }
+    },
+    {
+        "keys": ["ctrl+alt+2"],
+        "command": "set_dictionary",
+        "args": { "path": "Packages/Dictionaries/Swedish.dic" }
+    }
+]
