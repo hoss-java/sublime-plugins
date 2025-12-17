@@ -56,18 +56,18 @@ gantt
 >
 >>The goal of this card is add a new plugin to Sublime to make it easy to switch between languages
 >>
->>### DOD  (definition of done):
+>>### DOD (definition of done):
 >>Add some hotkeys to switch between Swedish and english
 >>Finings are documented.
 >>
 >>### TODO :
->>- [ ] 1. 
+>>- [x] 1. Document all findings
 >>
 >>### Reports :
 >>* To make faster to type and document readme(markdown) files without using external tools to spellcheck, 
 >>
 >>### Steps to test and debugging:
->>- [] 1.
+>>- [x] 1. Document all findings
 >>
 >>### References :
 >>* []()
@@ -75,18 +75,17 @@ gantt
 >
 >
 >## 52-002
->### MarkdownXtra ![status](https://img.shields.io/badge/>status-NOT--STARTED-lightgrey)
+>### MarkdownXtra ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 ><details>
 >    <summary>Details</summary>
 >
 >>The goal of this card is to develop a sublime-text plugin to enhance working with markdown files.
 >>
->>### DOD  (definition of done):
->>
->>
+>>### DOD (definition of done):
+>>All finings are documented.
 >>
 >>### TODO :
->>- [ ] 1. Document all findings
+>>- [x] 1. Document all findings
 >>
 >>### Reports :
 >>* 
@@ -100,23 +99,23 @@ gantt
 >
 >
 >## 52-003
->### WhiteSpaces ![status](https://img.shields.io/badge/status-NOT--STARTED-lightgrey)
+>### WhiteSpaces ![status](https://img.shields.io/badge/>status-NOT--STARTED-lightgrey)
 ><details>
 >    <summary>Details</summary>
 >
 >>The goal of this card is to develop a sublime-text plugin to manage whitespaces.
 >>
->>### DOD  (definition of done):
+>>### DOD (definition of done):
 >>All finings are documented.
 >>
 >>### TODO :
->>- [ ] 1. Document all findings
+>>- [x] 1. Document all findings
 >>
 >>### Reports :
->>* 
+>> *
 >>
 >>### Steps to test and debugging:
->>- [ ] 1. Document all findings
+>> *
 >>
 >>### References :
 >>* []()
@@ -124,13 +123,13 @@ gantt
 >
 >
 >## 52-004
->### Maven ![status](https://img.shields.io/badge/status-NOT--STARTED-lightgrey)
+>### Maven ![status](https://img.shields.io/badge/>status-NOT--STARTED-lightgrey)
 ><details>
 ><summary>Details</summary>
 >
 >>The goal of this card is to develop a sublime-text plugin to enhance working with Maven projects
 >>
->>### DOD  (definition of done):
+>>### DOD (definition of done):
 >>All finings are documented.
 >>
 >>### TODO :

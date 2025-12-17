@@ -1,4 +1,4 @@
-# Sublime plugins - DicSwitcher 
+# Sublime-text plugins - DicSwitcher 
 Enhancing Sublime-text spellerchecker by adding a language swticher
 
 - Package - DicSwitcher
@@ -9,10 +9,11 @@ Copy the package (DicSwitcher) to `Packages/` (On Linux `~/.config/sublime-text/
 
 # How to use
 The DicSwitcher adds 3 hotkeys by default thet can be modified or added new keys if it needed.
+
 To modify keys `Packages/DicSwitcher/Default (Linux).sublime-keymap`
 
 The default added hotkeys:
-* ctrl+shift+s toggle spellerchecker
+* ctrl+shift+S toggle spellerchecker
 * ctrl+alt+1 switch the language to English
 * ctrl+alt+2 switch the language to Swedish
 

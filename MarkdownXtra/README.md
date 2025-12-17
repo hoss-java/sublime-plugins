@@ -1,4 +1,4 @@
-# Sublime plugins - MarkdownXtra 
+# Sublime-text plugins - MarkdownXtra 
 Enhancing Sublime-text to work with markdown files
 
 - Package - MarkdownXtra

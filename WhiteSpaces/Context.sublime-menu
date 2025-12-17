@@ -1,0 +1,12 @@
+[
+    {
+        "id": "highlight_whitespaces",
+        "caption": "Highlight WhiteSpace",
+        "command": "toggle_highlight_multi_spaces",
+    },
+    {
+        "id": "whitespaces",
+        "caption": "WhiteSpace",
+        "command": "show_white_space_cycle",
+    },
+]
