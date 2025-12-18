@@ -2,6 +2,7 @@ import subprocess
 import json
 import os
 from pathlib import Path
+import xml.etree.ElementTree as ET
 from typing import List, Tuple, Union, Optional, Dict
 
 class MavenHelper():
@@ -74,6 +75,33 @@ class MavenHelper():
         return self.runner(cmd, timeout=timeout)
     '''
 
+    def isMavenPom(path):
+        """Return True if path points to a pom.xml that looks like a Maven POM."""
+        if not os.path.isfile(path):
+            return False
+        try:
+            tree = ET.parse(path)
+            root = tree.getroot()
+        except Exception:
+            return False
+
+        # Check root tag name (may include namespace)
+        tag = root.tag
+        # handle namespace: "{namespace}project" -> get local name
+        local = tag.split("}")[-1]
+        if local != "project":
+            return False
+
+        # Check for Maven namespace or common child elements
+        ns = None
+        if tag.startswith("{"):
+            ns = tag[1:].split("}")[0]
+
+        has_maven_ns = ns and ("maven" in ns or "apache.org" in ns)
+        has_core_elems = any(root.find(x) is not None for x in ("groupId", "artifactId", "modelVersion"))
+
+        return has_maven_ns or has_core_elems
+
     def isMavenProject(
         self,
         path: Union[str, Path],
@@ -114,7 +142,8 @@ class MavenHelper():
         current = start
         while True:
             if (current / "pom.xml").is_file():
-                return current
+                if (self.isMavenPom(current / "pom.xml"))
+                    return current
             if current == stop or current.parent == current:
                 # reached the provided stop directory or filesystem root
                 break
