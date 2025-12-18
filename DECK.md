@@ -145,10 +145,9 @@ gantt
 >>> * Update the `get_sidebar_folder.py` to use as the Maven plugin base
 >>> * Change the static menu to a dynamic menu ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >>> * Add path to the menu group title ![status](https://img.shields.io/badge/status-DONE-brightgreen)
->>> *
 >> * Step 3 - check a selected folder on the side bar is a Maven project folder/file
->>> * A selected item is inside a Maven project if the current selected folder or one of upper level folders has a `pom.xml` stored in
->>> * The upper level folders are scanned to find `pom.xml` up to the root folder inside of the side bar
+>>> * A selected item is inside a Maven project if the current selected folder or one of upper level folders has a `pom.xml` stored in ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+>>> * The upper level folders are scanned to find `pom.xml` up to the root folder inside of the side bar ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >>> * Perhaps a xml check for `pom.xml` is required
 
 >>

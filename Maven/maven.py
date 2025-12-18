@@ -1,16 +1,28 @@
 import sublime
 import sublime_plugin
+import threading
+import shutil
+import subprocess
 import json, os, sys, time
 from typing import List, Optional
 
-# --- Configuration ---
 PACKAGE = "Maven"
+# --- Import helpers ---
+pkg = os.path.join(sublime.packages_path(), PACKAGE, 'MavenHelper')
+if pkg not in sys.path:
+    sys.path.insert(0, pkg)
+from MavenHelper import MavenHelper # now imports Packages/Maven/MavenHelper/MavenHelper.py
+
+# --- End Import helpers ---
+
+# --- Configuration ---
 MENU_PATH = os.path.join(sublime.packages_path(), PACKAGE, "Side Bar.sublime-menu")
 # Name used in the sidebar context menu
 MAVEN_MENU_LABEL = "Maven"
 # If True, will add a disabled menu entry when docker not found.
 SHOW_DISABLED_WHEN_NOT_FOUND = False
 
+mavenHelper = None
 mavenMenuPlaceholder = False
 # --- End config ---
 
@@ -46,6 +58,9 @@ def write_maven_menu():
 # Run initial check in background so startup isn't blocked
 def plugin_loaded():
     global mavenMenuPlaceholder
+    global mavenHelper
+
+    mavenHelper = MavenHelper(None)
 
     mavenMenuPlaceholder = True
     write_maven_menu()
@@ -125,19 +140,27 @@ class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
         self.window.show_quick_panel([requestedPath], None)
         return requestedPath
 
-    def is_enabled(self):
-        return mavenMenuPlaceholder
+    def is_enabled(self, paths=None, **kwargs):
+        global mavenHelper
+        selectedFolder = self.getSelectedPath(paths)
+        windowFolder = self.getSidebarPath()
+
+        if mavenHelper.isMavenProject(selectedFolder,windowFolder) != None:
+            return True
+        return False
 
     def is_visible(self):
         # Always visible so the menu header shows even when disabled
         return True
 
     def description(self, paths=None, **kwargs):
+        global mavenHelper
         selectedFolder = self.getSelectedPath(paths)
         windowFolder = self.getSidebarPath()
-        relativePath = self.getRelativePath(selectedFolder,windowFolder)
-        if relativePath != None:
-            requestedPath = relativePath 
+        requestedPath=""
+        theReturnPath = mavenHelper.isMavenProject(selectedFolder,windowFolder)
+        if theReturnPath != None:
+            requestedPath=" ("+os.path.basename(theReturnPath)+")"
 
-        return MAVEN_MENU_LABEL+"("+requestedPath+")"
+        return MAVEN_MENU_LABEL+requestedPath
 
