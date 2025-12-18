@@ -1,0 +1,12 @@
+[
+  {
+    "caption": "Docker Maven sidemenu",
+    "children": [
+      {
+        "caption": "Get Folder Path (containerpath)",
+        "command": "get_sidebar_folder",
+        "args": {"paths": ["$folder"]}
+      }
+    ]
+  }
+]

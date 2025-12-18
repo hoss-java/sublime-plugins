@@ -121,7 +121,7 @@ Another problem for both texts and codes are whitespaces. As I know Sublime has 
 ```python
 [
     {
-        "keys": ["ctrl+alt+w"] ,
+        "keys": ["ctrl+alt+W"] ,
         "command": "show_white_space_cycle"
     },
     {
@@ -134,5 +134,25 @@ Another problem for both texts and codes are whitespaces. As I know Sublime has 
 OBS! All files packed in a folder named **WhiteSpaces**
 
 ### Maven
+The idea for this plugin is to add some shortcuts and features to supports creating, running and etc. for Maven projects
+It also aims to work with both Maven hosted by containers and the host.
+
+#### The idea
+Add Maven items to menus (properly both Main and Context menus)
+1. Maven menu items are added if Maven is found/installed. It can be checked for both container base or host base.
+2. A Maven creation item can be added/enabled if the selected path/location is not a Maven folder.
+3. To check a folder is a Maven folder , `pom.xml` is checked
+4. If a selected path/location is a Maven project, some command such as run, build and run tests are added/enabled.
+
+#### Steps
+* Step 1 - Find the folder path right clicked on the side bar
+> * Find the root path of the side bar
+> * Find absolute path of the selected item on the side bar
+> * Find relative path of the selected item on the side bar
+* Step 2 - check a selected folder on the side bar is a Maven project folder/file
+> * A selected item is inside a Maven project if the current selected folder or one of upper level folders has a `pom.xml` stored in
+> * The upper level folders are scanned to find `pom.xml` up to the root folder inside of the side bar
+> * Perhaps a xml check for `pom.xml` is required
+
 
 OBS! All files packed in a folder named **Maven**
