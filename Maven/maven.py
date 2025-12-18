@@ -1,8 +1,69 @@
 import sublime
 import sublime_plugin
-import os
-import sys
+import json, os, sys, time
 from typing import List, Optional
+
+# --- Configuration ---
+PACKAGE = "Maven"
+MENU_PATH = os.path.join(sublime.packages_path(), PACKAGE, "Side Bar.sublime-menu")
+# Name used in the sidebar context menu
+MAVEN_MENU_LABEL = "Maven"
+# If True, will add a disabled menu entry when docker not found.
+SHOW_DISABLED_WHEN_NOT_FOUND = False
+
+mavenMenuPlaceholder = False
+# --- End config ---
+
+def write_maven_menu():
+    menu = [
+        {
+            "caption": MAVEN_MENU_LABEL,
+            "command": "maven_menu_placeholder",
+            "children": [
+                {
+                    "caption": "Get Folder Path (absolute)",
+                    "command": "get_sidebar_folder",
+                    "args": {"paths": ["$folder"],"returnPathType":0}
+                },
+                {
+                    "caption": "Get Sidebar Path (absolute)",
+                    "command": "get_sidebar_folder",
+                    "args": {"paths": ["$folder"],"returnPathType":1}
+                },
+                {
+                    "caption": "Get Folder Path (relative)",
+                    "command": "get_sidebar_folder",
+                    "args": {"paths": ["$folder"],"returnPathType":2}
+                }
+            ]
+        }
+    ]
+    os.makedirs(os.path.dirname(MENU_PATH), exist_ok=True)
+    with open(MENU_PATH, "w", encoding="utf-8") as f:
+        json.dump(menu, f, indent=2, ensure_ascii=False)
+
+# Run initial check in background so startup isn't blocked
+def plugin_loaded():
+    global mavenMenuPlaceholder
+
+    mavenMenuPlaceholder = True
+    write_maven_menu()
+
+class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
+    # This command exists only so the menu group can be enabled/disabled
+    def run(self):
+        # No action; group acts as a placeholder
+        pass
+
+    def is_enabled(self):
+        return mavenMenuPlaceholder
+
+    def is_visible(self):
+        # Always visible so the menu header shows even when disabled
+        return True
+
+    def description(self, **kwargs):
+        return MAVEN_MENU_LABEL
 
 class GetSidebarFolderCommand(sublime_plugin.WindowCommand):
     def getSelectedPath(self, paths: List[str]) -> Optional[str]:
@@ -71,7 +132,6 @@ class GetSidebarFolderCommand(sublime_plugin.WindowCommand):
             relativePath = self.getRelativePath(selectedFolder,windowFolder)
             if relativePath != None:
                 requestedPath = relativePath 
-
 
         # Show result: Show status/quick panel
         sublime.status_message("Requested path: " + requestedPath)
