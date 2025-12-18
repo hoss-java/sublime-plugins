@@ -3,9 +3,14 @@
     "caption": "Docker Maven sidemenu",
     "children": [
       {
-        "caption": "Get Folder Path (containerpath)",
+        "caption": "Get Folder Path (absolute)",
         "command": "get_sidebar_folder",
-        "args": {"paths": ["$folder"]}
+        "args": {"paths": ["$folder"],"returnPathType":0}
+      },
+      {
+        "caption": "Get Sidebar Path (absolute)",
+        "command": "get_sidebar_folder",
+        "args": {"paths": ["$folder"],"returnPathType":1}
       }
     ]
   }
