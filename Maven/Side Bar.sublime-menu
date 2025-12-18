@@ -11,6 +11,11 @@
         "caption": "Get Sidebar Path (absolute)",
         "command": "get_sidebar_folder",
         "args": {"paths": ["$folder"],"returnPathType":1}
+      },
+      {
+        "caption": "Get Folder Path (relative)",
+        "command": "get_sidebar_folder",
+        "args": {"paths": ["$folder"],"returnPathType":2}
       }
     ]
   }

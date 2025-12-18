@@ -140,7 +140,7 @@ gantt
 >>* Step 1 - Find the folder path right clicked on the side bar
 >> * Find the root path of the side bar ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >> * Find absolute path of the selected item on the side bar ![status](https://img.shields.io/badge/status-DONE-brightgreen)
->> * Find relative path of the selected item on the side bar
+>> * Find relative path of the selected item on the side bar ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >> * Step 2 - check a selected folder on the side bar is a Maven project folder/file
 >> * A selected item is inside a Maven project if the current selected folder or one of upper level folders has a `pom.xml` stored in
 >> * The upper level folders are scanned to find `pom.xml` up to the root folder inside of the side bar
