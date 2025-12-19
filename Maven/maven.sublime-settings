@@ -1,0 +1,8 @@
+{
+  "container_mode": false,
+  "docker_container": "maven",
+  "default_archetype": "maven-archetype-quickstart",
+  "default_interactive": false,
+  "default_group_prefix": "com.",
+  "default_output_relative": true
+}

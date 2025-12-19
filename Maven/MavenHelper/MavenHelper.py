@@ -13,6 +13,9 @@ class MavenHelper():
         """
         self.runner = runner
 
+    def log(self,msg):
+        print("[MavenHelper]", str(msg))
+
     # -------------------------
     # Command builders
     # -------------------------
@@ -107,45 +110,27 @@ class MavenHelper():
         path: Union[str, Path],
         stop_at: Optional[Union[str, Path]] = None
     ) -> Optional[Path]:
-        """
-        Return the Path to the Maven project root (directory containing pom.xml)
-        if `path` is inside a Maven project. `path` may be a file, the project
-        root, or any subdirectory.
-
-        Parameters:
-        - path: starting file or directory to check.
-        - stop_at: optional directory path (inclusive). Walking upward will not
-            go above this directory. If stop_at is None, walk up to the filesystem root.
-
-        Behavior:
-        - If `path` is a file, the search starts from its parent directory.
-        - The function checks the start directory and each ancestor up to and
-            including `stop_at` (if provided) or the filesystem root.
-        - Returns the Path containing pom.xml, or None if none found.
-        """
+        # Normalize inputs to Path objects
         start = Path(path).resolve()
         if start.exists() and start.is_file():
             start = start.parent
 
-        stop = Path(stop_at).resolve() if stop_at is not None else None
-        # If stop is provided but not a directory, use its parent
-        if stop is not None and not stop.is_dir():
-            stop = stop.parent
+        stop: Optional[Path] = None
+        if stop_at is not None:
+            stop = Path(stop_at).resolve()
+            if not stop.is_dir():
+                stop = stop.parent
 
-        print(start+","+stop)
-        # If stop is provided, ensure it's an ancestor of start; if not, do nothing
         if stop is not None and stop not in (start, *start.parents):
-            # stop is not an ancestor of start so no upward search allowed beyond start
-            # we'll still check start itself
             stop = start
 
         current = start
         while True:
             if (current / "pom.xml").is_file():
-                if (self.isMavenPom(current / "pom.xml"))
-                    return current
+                self.log(current)
+                return current
             if current == stop or current.parent == current:
-                # reached the provided stop directory or filesystem root
                 break
-            current = current.parent
+            # defensive: ensure current stays a Path
+            current = Path(current).parent
         return None

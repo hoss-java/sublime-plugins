@@ -150,7 +150,9 @@ gantt
 >>> * The upper level folders are scanned to find `pom.xml` up to the root folder inside of the side bar ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >>> * Perhaps a xml check for `pom.xml` is required ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >> * Step 4 - Reading/saving settings
->>> * Add a settings file and its loading method
+>>> * Add a settings file and its loading method ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+>> * Step 5 - Adapt the Maven menu
+>>> * 
 >>### Steps to test and debugging:
 >>- [] 1.
 >>

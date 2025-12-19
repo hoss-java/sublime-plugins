@@ -22,6 +22,11 @@ MAVEN_MENU_LABEL = "Maven"
 # If True, will add a disabled menu entry when docker not found.
 SHOW_DISABLED_WHEN_NOT_FOUND = False
 
+SETTINGS_FILE = "maven.sublime-settings"
+# Default settings
+CONTAINER_MODE=False
+DOCKER_CONTAINER=None
+
 mavenHelper = None
 mavenMenuPlaceholder = False
 # --- End config ---
@@ -60,12 +65,19 @@ def plugin_loaded():
     global mavenMenuPlaceholder
     global mavenHelper
 
+    s = sublime.load_settings(SETTINGS_FILE)
+    CONTAINER_MODE = s.get("container_mode", False)
+    print("[Maven] load settings: ", s.to_dict())
+
     mavenHelper = MavenHelper(None)
 
     mavenMenuPlaceholder = True
     write_maven_menu()
 
 class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
+    def log(self,msg):
+        print("[Maven]", msg)
+
     def getSelectedPath(self, paths: List[str]) -> Optional[str]:
         selectedFolder = None
         # Expect 'paths' from Side Bar menu args (["$file"] or ["$folder"])
@@ -144,7 +156,6 @@ class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
         global mavenHelper
         selectedFolder = self.getSelectedPath(paths)
         windowFolder = self.getSidebarPath()
-
         if mavenHelper.isMavenProject(selectedFolder,windowFolder) != None:
             return True
         return False
