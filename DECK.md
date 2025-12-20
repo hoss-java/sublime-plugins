@@ -152,7 +152,8 @@ gantt
 >> * Step 4 - Reading/saving settings
 >>> * Add a settings file and its loading method ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >> * Step 5 - Adapt the Maven menu
->>> * 
+>>> * Recode the menu part to make it easy to add new items ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+>>> * Check maven availability to enable disable menu items
 >>### Steps to test and debugging:
 >>- [] 1.
 >>

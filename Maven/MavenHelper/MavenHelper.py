@@ -127,7 +127,7 @@ class MavenHelper():
         current = start
         while True:
             if (current / "pom.xml").is_file():
-                self.log(current)
+                #self.log(current)
                 return current
             if current == stop or current.parent == current:
                 break

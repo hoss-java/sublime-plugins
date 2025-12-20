@@ -31,35 +31,83 @@ mavenHelper = None
 mavenMenuPlaceholder = False
 # --- End config ---
 
-def write_maven_menu():
-    menu = [
-        {
-            "id": "maven_group_id",
-            "command": "maven_menu_placeholder",
-            "args": {"paths": ["$folder"],"returnPathType":0},
-            "children": [
-                {
-                    "caption": "Get Folder Path (absolute)",
-                    "command": "maven_menu_placeholder",
-                    "args": {"paths": ["$folder"],"returnPathType":1}
-                },
-                {
-                    "caption": "Get Sidebar Path (absolute)",
-                    "command": "maven_menu_placeholder",
-                    "args": {"paths": ["$folder"],"returnPathType":2}
-                },
-                {
-                    "caption": "Get Folder Path (relative)",
-                    "command": "maven_menu_placeholder",
-                    "args": {"paths": ["$folder"],"returnPathType":3}
-                }
-            ]
-        }
-    ]
-    os.makedirs(os.path.dirname(MENU_PATH), exist_ok=True)
-    with open(MENU_PATH, "w", encoding="utf-8") as f:
-        json.dump(menu, f, indent=2, ensure_ascii=False)
+class Command:
+    def __init__(self, title, type=None, flags=[False]):
+        self.title = title
+        self.type = type
+        self.flags = flags
 
+class Menu:
+    def __init__(self, prefix, command,args):
+        self.prefix = prefix
+        self.command = command
+        self.args = args
+        self.children = []
+
+    def add_child(self, command):
+        self.children.append(command)
+
+    @staticmethod
+    def getFlags(main_commands, prefix, item_id):
+        title = item_id.replace(f"{prefix}_", "").replace("_id", "")
+        for command in main_commands:
+            if Menu.normalizeStr(command.title) == title:
+                return command.flags
+            if isinstance(command.type, list):
+                for sub_command in command.type:
+                    if Menu.normalizeStr(sub_command.title) == title:
+                        return sub_command.flags
+        return None
+
+    @staticmethod
+    def normalizeStr(title):
+        return title.replace(" ", "_").lower()
+
+    def generate_menu(self, mainCommands):
+        self.children = []
+        for command in mainCommands:
+            self.add_child(self.create_menu_item(command))
+        return self.children
+
+    def create_menu_item(self, command):
+        item_id = f"{self.prefix}_{Menu.normalizeStr(command.title)}_id"
+        item = {
+            "caption": command.title,
+            "id": item_id,
+            "command": self.command,
+            "args": {**self.args, "item_id": item_id}
+        }
+        if isinstance(command.type, list):
+            item["children"] = []
+            for sub_command in command.type:
+                item["children"].append(self.create_menu_item(sub_command))
+        return item
+
+    def write_menu(self,mainCommands):
+        menu = [
+            {
+                "id": f"{self.prefix}_group_id",
+                "command": f"{self.prefix}_menu_placeholder",
+                "args": {**self.args, "item_id":f"{self.prefix}_group_id"},
+                "children": self.generate_menu(mainCommands)
+            }
+        ]
+        os.makedirs(os.path.dirname(MENU_PATH), exist_ok=True)
+        with open(MENU_PATH, "w", encoding="utf-8") as f:
+            json.dump(menu, f, indent=2, ensure_ascii=False)
+
+
+create_commands = [
+    Command("Maven Archetype Quickstart", None, [False]),
+]
+
+main_commands = [
+    Command("Create", create_commands, [False]),
+    Command("Run", None, [True]),
+    Command("Build", None, [True]),
+    Command("Tests", None, [True]),
+    Command("Clean", None, [True])
+]
 # Run initial check in background so startup isn't blocked
 def plugin_loaded():
     global mavenMenuPlaceholder
@@ -72,11 +120,13 @@ def plugin_loaded():
     mavenHelper = MavenHelper(None)
 
     mavenMenuPlaceholder = True
-    write_maven_menu()
+    menuInstance = Menu("maven","maven_menu_placeholder",{"paths": ["$folder"]})
+    menuInstance.write_menu(main_commands)
 
 class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
+    prefix="Maven"
     def log(self,msg):
-        print("[Maven]", msg)
+        print("["+self.prefix+"]", msg)
 
     def getSelectedPath(self, paths: List[str]) -> Optional[str]:
         selectedFolder = None
@@ -128,7 +178,7 @@ class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
             rel = "" # or keep "." depending on preference
         return rel
 
-    def run(self, paths=None, returnPathType=0) -> Optional[str]:
+    def run(self, paths=None,item_id=None, returnPathType=0) -> Optional[str]:
         requestedPath = "No path was found!"
         if returnPathType == 0:
             return None
@@ -152,26 +202,35 @@ class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
         self.window.show_quick_panel([requestedPath], None)
         return requestedPath
 
-    def is_enabled(self, paths=None, **kwargs):
+    def is_enabled(self, paths=None, item_id=None, **kwargs):
         global mavenHelper
         selectedFolder = self.getSelectedPath(paths)
         windowFolder = self.getSidebarPath()
         if mavenHelper.isMavenProject(selectedFolder,windowFolder) != None:
             return True
-        return False
-
-    def is_visible(self):
-        # Always visible so the menu header shows even when disabled
+        #return False
         return True
 
-    def description(self, paths=None, **kwargs):
+    def is_visible(self, paths=None, item_id=None, **kwargs):
+        # Always visible so the menu header shows even when disabled
+        if item_id != None:
+            selectedFolder = self.getSelectedPath(paths)
+            windowFolder = self.getSidebarPath()
+            if mavenHelper.isMavenProject(selectedFolder,windowFolder) == None:
+                return not Menu.getFlags(main_commands ,self.prefix.lower(),item_id)[0]
+            return Menu.getFlags(main_commands ,self.prefix.lower(),item_id)[0]
+        return True
+
+    def description(self, paths=None, item_id=None, **kwargs):
         global mavenHelper
         selectedFolder = self.getSelectedPath(paths)
         windowFolder = self.getSidebarPath()
-        requestedPath=""
-        theReturnPath = mavenHelper.isMavenProject(selectedFolder,windowFolder)
-        if theReturnPath != None:
-            requestedPath=" ("+os.path.basename(theReturnPath)+")"
+        #self.log(item_id + " ,"+str(Menu.get_flag(main_commands ,item_id)))
+        if item_id == "maven_group_id":
+            requestedPath=""
+            theReturnPath = mavenHelper.isMavenProject(selectedFolder,windowFolder)
+            if theReturnPath != None:
+                requestedPath=" ("+os.path.basename(theReturnPath)+")"
 
-        return MAVEN_MENU_LABEL+requestedPath
+            return MAVEN_MENU_LABEL+requestedPath
 
