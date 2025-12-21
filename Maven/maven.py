@@ -8,25 +8,38 @@ from typing import List, Optional
 
 PACKAGE = "Maven"
 # --- Import helpers ---
+pkg = os.path.join(sublime.packages_path(), PACKAGE, 'DockerHelper')
+if pkg not in sys.path:
+    sys.path.insert(0, pkg)
+from DockerHelper import DockerHelper # now imports Packages/Maven/DockerHelper/DockerHelper.py
+
+pkg = os.path.join(sublime.packages_path(), PACKAGE, 'ShellHelper')
+if pkg not in sys.path:
+    sys.path.insert(0, pkg)
+from ShellHelper import ShellHelper # now imports Packages/Maven/ShellHelper/ShellHelper.py
+
 pkg = os.path.join(sublime.packages_path(), PACKAGE, 'MavenHelper')
 if pkg not in sys.path:
     sys.path.insert(0, pkg)
 from MavenHelper import MavenHelper # now imports Packages/Maven/MavenHelper/MavenHelper.py
+
 
 # --- End Import helpers ---
 
 # --- Configuration ---
 MENU_PATH = os.path.join(sublime.packages_path(), PACKAGE, "Side Bar.sublime-menu")
 # Name used in the sidebar context menu
-MAVEN_MENU_LABEL = "Maven"
+MAVEN_MENU_LABEL = PACKAGE
 # If True, will add a disabled menu entry when docker not found.
 SHOW_DISABLED_WHEN_NOT_FOUND = False
 
-SETTINGS_FILE = "maven.sublime-settings"
+SETTINGS_FILE = PACKAGE.lower()+".sublime-settings"
 # Default settings
 CONTAINER_MODE=False
 DOCKER_CONTAINER=None
 
+dockerHelper = None
+shellHelper = None
 mavenHelper = None
 mavenMenuPlaceholder = False
 # --- End config ---
@@ -111,20 +124,45 @@ main_commands = [
 # Run initial check in background so startup isn't blocked
 def plugin_loaded():
     global mavenMenuPlaceholder
+    global dockerHelper
+    global shellHelper
     global mavenHelper
+    global PACKAGE
+    global CONTAINER_MODE
+    global DOCKER_CONTAINER
+    global MAVEN_MENU_LABEL
+    maven_menu_placeholder = "maven_menu_placeholder"
+
+    def log(msg):
+        global PACKAGE 
+        print("["+PACKAGE+"]", msg)
+
 
     s = sublime.load_settings(SETTINGS_FILE)
     CONTAINER_MODE = s.get("container_mode", False)
-    print("[Maven] load settings: ", s.to_dict())
+    log("load settings: " + str(s.to_dict()))
 
-    mavenHelper = MavenHelper(None)
+    if CONTAINER_MODE == True:
+        DOCKER_CONTAINER = s.get("docker_container", None)
+        MAVEN_MENU_LABEL = MAVEN_MENU_LABEL + ":Container"
+        dockerHelper = DockerHelper(DOCKER_CONTAINER)
+        mavenHelper = MavenHelper(dockerHelper.runContainerCommand)
+    else :
+        shellHelper = ShellHelper()
+        mavenHelper = MavenHelper(shellHelper.runHostCommand)
 
-    mavenMenuPlaceholder = True
-    menuInstance = Menu("maven","maven_menu_placeholder",{"paths": ["$folder"]})
-    menuInstance.write_menu(main_commands)
+    if mavenHelper.isMavenAvailable() == True:
+        mavenMenuPlaceholder = True
+        menuInstance = Menu(PACKAGE.lower(),maven_menu_placeholder,{"paths": ["$folder"]})
+        menuInstance.write_menu(main_commands)
+    else:
+        mavenMenuPlaceholder = False
+    log("isMavenAvailable: " + str(mavenMenuPlaceholder))
+
 
 class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
-    prefix="Maven"
+    global PACKAGE
+    prefix = PACKAGE
     def log(self,msg):
         print("["+self.prefix+"]", msg)
 
@@ -203,13 +241,8 @@ class MavenMenuPlaceholderCommand(sublime_plugin.WindowCommand):
         return requestedPath
 
     def is_enabled(self, paths=None, item_id=None, **kwargs):
-        global mavenHelper
-        selectedFolder = self.getSelectedPath(paths)
-        windowFolder = self.getSidebarPath()
-        if mavenHelper.isMavenProject(selectedFolder,windowFolder) != None:
-            return True
-        #return False
-        return True
+        global mavenMenuPlaceholder
+        return mavenMenuPlaceholder
 
     def is_visible(self, paths=None, item_id=None, **kwargs):
         # Always visible so the menu header shows even when disabled

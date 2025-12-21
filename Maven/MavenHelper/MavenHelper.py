@@ -6,6 +6,8 @@ import xml.etree.ElementTree as ET
 from typing import List, Tuple, Union, Optional, Dict
 
 class MavenHelper():
+    runner = None
+
     def __init__(self, runner):
         """
         runner must provide a call(command: Union[str, List[str]], timeout: int) -> (code, out, err)
