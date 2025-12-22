@@ -123,7 +123,7 @@ gantt
 >
 >
 >## 52-004
->### ## {{ Maven }} ![status](https://img.shields.io/badge/status-{{ status }})
+>### ## {{ title }} ![status](https://img.shields.io/badge/status-{{ status }})
 > <details {% if status == "ONGOING" or status == "IN PROGRESS" %}open{% endif %}>
 ><summary>Details</summary>
 >
