@@ -123,7 +123,7 @@ gantt
 >
 >
 >## 52-004
->### Maven2
+>### Maven
 >>The goal of this card is to develop a sublime-text plugin to enhance working with Maven projects
 >>
 >>### DOD (definition of done):
