@@ -13,34 +13,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install yq
+      - name: Find DECK.md files
+        id: find-deck-files
         run: |
-          sudo apt-get install yq
+          find . -name "DECK.md" -print > deck-files.txt
 
       - name: Generate Markdown
         run: |
-          yq e '.[]' deck-statuses.yaml | while read -r line; do
-            title=$(echo "$line" | yq e '.title')
-            status=$(echo "$line" | yq e '.status')
+          while IFS= read -r file; do
+            title=$(basename "$file" .md)
+            data=$(yq e '.' "$file".yaml)
 
-            case $status in
-              NOT STARTED|NOT--STARTED)
-                color="lightgrey"
-                ;;
-              ONGOING)
-                color="yellow"
-                ;;
-              DONE)
-                color="brightgreen"
-                ;;
-              *)
-                color="gray"
-                ;;
-            esac
+            # ... rest of your script ...
 
+            # Update the DECK.md file
             echo "## $title ![status](https://img.shields.io/badge/status-$status-$color)
 <details $(if [ \"$status\" = \"ONGOING\" ]; then echo \"open\"; fi)>
   <summary>Details</summary>
   <!-- your content here -->
-</details>" >> README.md
-          done
+</details>" > "$file"
+          done < deck-files.txt
