@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in $(git ls-files | grep DECK.md); do
+for file in $(git ls-files | grep DECK1.md); do
   yaml_file="${file%.md}.yaml"
   if [ -f "$yaml_file" ]; then
     title=$(grep -m 1 "^>###.*" "$file" | sed -e 's/^>###//; s/ .*//')
