@@ -1,4 +1,3 @@
-# data.yaml
-- title: Maven
-  prefix: ">###"
-  status: ONGOING
+title: Maven
+prefix: ">###"
+status: ONGOING

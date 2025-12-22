@@ -1,5 +1,5 @@
-# generate-markdown.yml
-name: Generate Markdown
+# generate-deck.yml
+name: Generate Deck
 
 on:
   push:
@@ -13,14 +13,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Generate Markdown
+      - name: Generate Deck
         run: |
           for file in $(git ls-files | grep DECK.md); do
             yaml_file="${file%.md}.yaml"
 
             if [ -f "$yaml_file" ]; then
-              title=$(yq e '.title' "$yaml_file")
-              type=$(yq e '.type' "$yaml_file")
+              title=$(grep -m 1 "^>###.*" "$file" | sed -e 's/^>###//; s/ .*//')
+              if [ -z "$title" ]; then
+                title=$(grep -m 1 "^##.*" "$file" | sed -e 's/^##//; s/ .*//')
+              fi
+              if [ -z "$title" ]; then
+                title=$(grep -m 1 "^#.*" "$file" | sed -e 's/^#//; s/ .*//')
+              fi
+
+              prefix=$(yq e '.prefix' "$yaml_file")
               status=$(yq e '.status' "$yaml_file")
 
               case $status in
@@ -38,7 +45,7 @@ jobs:
                   ;;
               esac
 
-              title_line="$type $title"
+              title_line="$prefix $title"
 
               echo "$title_line ![status](https://img.shields.io/badge/status-$status-$color)
 <details $(if [ \"$status\" = \"ONGOING\" ]; then echo \"open\"; fi)>
