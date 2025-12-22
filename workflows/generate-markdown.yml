@@ -1,0 +1,46 @@
+# generate-markdown.yml
+name: Generate Markdown
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install yq
+        run: |
+          sudo apt-get install yq
+
+      - name: Generate Markdown
+        run: |
+          yq e '.[]' data.yaml | while read -r line; do
+            title=$(echo "$line" | yq e '.title')
+            status=$(echo "$line" | yq e '.status')
+
+            case $status in
+              DONE)
+                badge_color="green"
+                ;;
+              ONGOING|IN PROGRESS)
+                badge_color="yellow"
+                ;;
+              NOT STARTED)
+                badge_color="red"
+                ;;
+              *)
+                badge_color="gray"
+                ;;
+            esac
+
+            echo "## $title ![status](https://img.shields.io/badge/status-$status-$badge_color)
+<details $(if [ \"$status\" = \"ONGOING\" ] || [ \"$status\" = \"IN PROGRESS\" ]; then echo \"open\"; fi)>
+  <summary>Details</summary>
+  <!-- your content here -->
+</details>" >> README.md
+          done

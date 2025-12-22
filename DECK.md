@@ -123,8 +123,8 @@ gantt
 >
 >
 >## 52-004
->### Maven ![status](https://img.shields.io/badge/status-ONGOING-yellow)
-><details>
+>### ## {{ Maven }} ![status](https://img.shields.io/badge/status-{{ status }})
+> <details {% if status == "ONGOING" or status == "IN PROGRESS" %}open{% endif %}>
 ><summary>Details</summary>
 >
 >>The goal of this card is to develop a sublime-text plugin to enhance working with Maven projects
