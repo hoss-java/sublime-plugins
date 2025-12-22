@@ -19,27 +19,27 @@ jobs:
 
       - name: Generate Markdown
         run: |
-          yq e '.[]' data.yaml | while read -r line; do
+          yq e '.[]' deck-statuses.yaml | while read -r line; do
             title=$(echo "$line" | yq e '.title')
             status=$(echo "$line" | yq e '.status')
 
             case $status in
+              NOT STARTED|NOT--STARTED)
+                color="lightgrey"
+                ;;
+              ONGOING)
+                color="yellow"
+                ;;
               DONE)
-                badge_color="green"
-                ;;
-              ONGOING|IN PROGRESS)
-                badge_color="yellow"
-                ;;
-              NOT STARTED)
-                badge_color="red"
+                color="brightgreen"
                 ;;
               *)
-                badge_color="gray"
+                color="gray"
                 ;;
             esac
 
-            echo "## $title ![status](https://img.shields.io/badge/status-$status-$badge_color)
-<details $(if [ \"$status\" = \"ONGOING\" ] || [ \"$status\" = \"IN PROGRESS\" ]; then echo \"open\"; fi)>
+            echo "## $title ![status](https://img.shields.io/badge/status-$status-$color)
+<details $(if [ \"$status\" = \"ONGOING\" ]; then echo \"open\"; fi)>
   <summary>Details</summary>
   <!-- your content here -->
 </details>" >> README.md
