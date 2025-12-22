@@ -10,9 +10,8 @@ for file in $(git ls-files | grep DECK.md); do
     if [ -z "$title" ]; then
       title=$(grep -m 1 "^#.*" "$file" | sed -e 's/^#//; s/ .*//')
     fi
-    data=$(yq e '.' "$yaml_file")
-    prefix=$(echo "$data" | yq e '.prefix')
-    status=$(echo "$data" | yq e '.status')
+    prefix=$(grep -m 1 "prefix:" "$yaml_file" | sed -e 's/prefix://; s/ //g')
+    status=$(grep -m 1 "status:" "$yaml_file" | sed -e 's/status://; s/ //g')
     case $status in
       NOT\ STARTED)
         color="lightgrey"
