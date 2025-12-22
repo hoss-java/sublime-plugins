@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq yq
+
       - name: Generate Deck
         run: |
           for file in $(git ls-files | grep DECK.md); do
@@ -31,7 +36,7 @@ jobs:
               status=$(yq e '.status' "$yaml_file")
 
               case $status in
-                NOT STARTED)
+                NOT\ STARTED)
                   color="lightgrey"
                   ;;
                 ONGOING)
