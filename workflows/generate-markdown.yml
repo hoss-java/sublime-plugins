@@ -13,23 +13,40 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Find DECK.md files
-        id: find-deck-files
-        run: |
-          find . -name "DECK.md" -print > deck-files.txt
-
       - name: Generate Markdown
         run: |
-          while IFS= read -r file; do
-            title=$(basename "$file" .md)
-            data=$(yq e '.' "$file".yaml)
+          for file in $(git ls-files | grep DECK.md); do
+            yaml_file="${file%.md}.yaml"
 
-            # ... rest of your script ...
+            if [ -f "$yaml_file" ]; then
+              title=$(yq e '.title' "$yaml_file")
+              type=$(yq e '.type' "$yaml_file")
+              status=$(yq e '.status' "$yaml_file")
 
-            # Update the DECK.md file
-            echo "## $title ![status](https://img.shields.io/badge/status-$status-$color)
+              case $status in
+                NOT STARTED)
+                  color="lightgrey"
+                  ;;
+                ONGOING)
+                  color="yellow"
+                  ;;
+                DONE)
+                  color="brightgreen"
+                  ;;
+                *)
+                  color="gray"
+                  ;;
+              esac
+
+              title_line="$type $title"
+
+              echo "$title_line ![status](https://img.shields.io/badge/status-$status-$color)
 <details $(if [ \"$status\" = \"ONGOING\" ]; then echo \"open\"; fi)>
   <summary>Details</summary>
   <!-- your content here -->
-</details>" > "$file"
-          done < deck-files.txt
+</details>" > temp.md
+
+              cat temp.md > "$file"
+              rm temp.md
+            fi
+          done
