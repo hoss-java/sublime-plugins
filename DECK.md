@@ -124,9 +124,6 @@ gantt
 >
 >## 52-004
 >### Maven
-> <details {% if status == "ONGOING" or status == "IN PROGRESS" %}open{% endif %}>
-><summary>Details</summary>
->
 >>The goal of this card is to develop a sublime-text plugin to enhance working with Maven projects
 >>
 >>### DOD (definition of done):
@@ -164,7 +161,6 @@ gantt
 >>
 >>### References :
 >>* []()
-></details>
 
 # Stories/cards MD2 - Develop
 
