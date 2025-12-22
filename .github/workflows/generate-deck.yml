@@ -19,4 +19,8 @@ jobs:
 
       - name: Generate Deck
         run: |
-          bash generate-deck.sh || { echo "Script failed"; exit 1; }
+          bash generate-deck.sh 2>&1 | tee output.log
+          if [ $? -ne 0 ]; then
+            echo "Script failed";
+          exit 1;
+          fi
