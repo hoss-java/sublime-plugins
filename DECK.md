@@ -152,8 +152,13 @@ gantt
 >> * Step 4 - Reading/saving settings
 >>> * Add a settings file and its loading method ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >> * Step 5 - Adapt the Maven menu
->>> * Recode the menu part to make it easy to add new items ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+>>> * Re-code the menu part to make it easy to add new items ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 >>> * Check maven availability to enable disable menu items
+>>> * Assign commands to menu items and find appropriate path of the project according to the method to run maven (host base or container base)
+>>> * In the case of a container base maven if the project path cannot be converted to a known path for the container, the menu items are disabled
+>>> * Finalize command implementation and find a solutions or way to show command running outputs
+>>> * Work on the create command, adding types, and find how to ask the name of the project
+>>> * List features than can be added later, not now with this card
 >>### Steps to test and debugging:
 >>- [] 1.
 >>
