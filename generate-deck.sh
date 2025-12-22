@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 for file in $(git ls-files | grep DECK.md); do
   yaml_file="${file%.md}.yaml"
@@ -33,6 +34,6 @@ for file in $(git ls-files | grep DECK.md); do
   <!-- your content here -->
 </details>" > temp.md
     cat temp.md > "$file"
-    rm temp.md
+    #rm temp.md
   fi
 done

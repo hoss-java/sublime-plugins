@@ -19,4 +19,4 @@ jobs:
 
       - name: Generate Deck
         run: |
-          bash generate-deck.sh
+          bash generate-deck.sh || { echo "Script failed"; exit 1; }
