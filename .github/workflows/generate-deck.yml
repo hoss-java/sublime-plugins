@@ -19,7 +19,7 @@ jobs:
 
       - name: Generate Deck
         run: |
-          bash generate-deck.sh 2>&1 | tee output.log
+          bash generate-deck.sh
           if [ $? -ne 0 ]; then
             echo "Script failed";
           exit 1;
