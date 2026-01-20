@@ -9,9 +9,10 @@ class SetSyntaxForDigitsCommand(sublime_plugin.EventListener):
 
         if file_name:  # Ensure that the file name is available
             base_name = os.path.basename(file_name)  # Get the base name of the file
+            print(file_name,os.path.splitext(base_name)[1] )
 
             # Load the settings
-            settings = sublime.load_settings("ShellInc.sublime-settings")
+            settings = sublime.load_settings("extension_overloader.sublime-settings")
             config = settings.get("config", [])  # Get the config, default to empty list
 
             # Check each configuration

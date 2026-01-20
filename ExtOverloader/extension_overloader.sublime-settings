@@ -8,9 +8,9 @@
         },
         {
             "path": "",
-            "pattern": "^\\d+$",
+            "pattern": "",
             "extension": ".shinc",  // Allowed extension for Shell scripts
-            "syntax": "Packages/ShellScript/ShellScript.sublime-syntax"
+            "syntax": "Packages/ShellScript/Bash.sublime-syntax"
         },
     ]
 }
