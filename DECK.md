@@ -111,6 +111,26 @@ gantt
 > > * List features than can be added later, not now with this card
 > </details>
 
+## 001-0005
+> **Add deck board to repo.** ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+> <details >
+>     <summary>Details</summary>
+> The goal of this card is to add a deck board to the repo.
+> 
+> # DOD (definition of done):
+> The repo has a deck board.
+> guthub workflow and needed scripts are added.
+> Repo has a secert token.
+> 
+> # TODO:
+> - [x] 1. Install/init deck on the repo
+> - [x] 2. Add gihub action files
+> - [x] 3. Add a token the repo
+> 
+> # Reports:
+> *
+> </details>
+
 ## 001-0006
 > **AddREADME** ![status](https://img.shields.io/badge/status-NOT--STARTED-lightgrey)
 > <details >
@@ -139,26 +159,6 @@ gantt
 > 
 > # TODO:
 > - [ ] 1. Fix issues.
-> 
-> # Reports:
-> *
-> </details>
-
-## 001-0005
-> **Add deck board to repo.** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
-> <details open>
->     <summary>Details</summary>
-> The goal of this card is to add a deck board to the repo.
-> 
-> # DOD (definition of done):
-> The repo has a deck board.
-> guthub workflow and needed scripts are added.
-> Repo has a secert token.
-> 
-> # TODO:
-> - [x] 1. Install/init deck on the repo
-> - [x] 2. Add gihub action files
-> - [x] 3. Add a token the repo
 > 
 > # Reports:
 > *
