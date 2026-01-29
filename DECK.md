@@ -131,6 +131,23 @@ gantt
 > *
 > </details>
 
+## 001-0006
+> **AddREADME** ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+> <details >
+>     <summary>Details</summary>
+> The goal of this card is to develop a sublime plugin to add README to repo(s)
+> 
+> # DOD (definition of done):
+> A sublime plugin to manage README is developed.
+> 
+> # TODO:
+> - [x] 1. Develop plugin
+> - [x} 2. Add some README templates
+> 
+> # Reports:
+> *
+> </details>
+
 ## 001-0007
 > **Add github actions to repo.** ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 > <details >
@@ -147,26 +164,9 @@ gantt
 > *
 > </details>
 
-## 001-0006
-> **AddREADME** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
-> <details open>
->     <summary>Details</summary>
-> The goal of this card is to develop a sublime plugin to add README to repo(s)
-> 
-> # DOD (definition of done):
-> A sublime plugin to manage README is developed.
-> 
-> # TODO:
-> - [x] 1. Develop plugin
-> - [x} 2. Add some README templates
-> 
-> # Reports:
-> *
-> </details>
-
 ## 001-0008
-> **fix DicSwitcher issues.** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
-> <details open>
+> **fix DicSwitcher issues.** ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+> <details >
 >     <summary>Details</summary>
 > The goal of this card is to fix issues found on DicSwitcher plugin.
 > 
