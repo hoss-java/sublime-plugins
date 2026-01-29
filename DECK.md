@@ -147,22 +147,6 @@ gantt
 > *
 > </details>
 
-## 001-0008
-> **fix DicSwitcher issues.** ![status](https://img.shields.io/badge/status-NOT--STARTED-lightgrey)
-> <details >
->     <summary>Details</summary>
-> The goal of this card is to fix issues found on DicSwitcher plugin.
-> 
-> # DOD (definition of done):
-> Issues are fixed.
-> 
-> # TODO:
-> - [ ] 1. Fix issues.
-> 
-> # Reports:
-> *
-> </details>
-
 ## 001-0006
 > **AddREADME** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
 > <details open>
@@ -175,6 +159,22 @@ gantt
 > # TODO:
 > - [x] 1. Develop plugin
 > - [x} 2. Add some README templates
+> 
+> # Reports:
+> *
+> </details>
+
+## 001-0008
+> **fix DicSwitcher issues.** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
+> <details open>
+>     <summary>Details</summary>
+> The goal of this card is to fix issues found on DicSwitcher plugin.
+> 
+> # DOD (definition of done):
+> Issues are fixed.
+> 
+> # TODO:
+> - [ ] 1. Fix issues.
 > 
 > # Reports:
 > *
