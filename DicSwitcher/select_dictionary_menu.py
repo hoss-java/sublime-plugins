@@ -2,7 +2,7 @@ import sublime, sublime_plugin, os, json, zipfile, traceback
 
 PACKAGE_NAME = "DicSwitcher"
 MENU_FILENAME = "Context.sublime-menu"
-DICT_PACKAGE = "Dictionaries"  # folder under Packages containing .dic files
+DICT_PACKAGE = "Dictionaries" # folder under Packages containing .dic files
 
 def log(msg):
     print("[DicSwitcher]", msg)
@@ -97,9 +97,10 @@ except Exception:
 class PopulateOnEvents(sublime_plugin.EventListener):
     # context menu opening does not provide a dedicated event; use activation/window command events
     def on_activated(self, view):
-        populate_menu()
+        #populate_menu()
+        pass
 
     def on_window_command(self, window, command_name, args):
         # ensure menu is up-to-date when many window commands run (cheap check)
-        populate_menu()
+        #populate_menu()
         return None
