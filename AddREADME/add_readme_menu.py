@@ -64,11 +64,11 @@ class Menu:
         files = self.list_files(TEMPLATES_PATH)
         for label in files:
             item = {"caption": label, 
-                "id": f"{self.prefix.lower()}_item_{label}",
-                "command": f"{self.prefix.lower()}_menu_placeholder", 
+                "id": f"{self.prefix}_item_{label}",
+                "command": f"{self.prefix}_menu_placeholder", 
                 "args": {
                     "paths": ["$folder"],
-                    "item_id": f"{self.prefix.lower()}_item_{label}",
+                    "item_id": f"{self.prefix}_item_{label}",
                     "file": label,
                     "templatespath": TEMPLATES_PATH
                     }
@@ -80,9 +80,9 @@ class Menu:
     def write_menu(self):
         menu = [
             {
-                "id": f"{self.prefix.lower()}_group_id",
-                "command": f"{self.prefix.lower()}_menu_placeholder",
-                "args": {**self.args, "item_id":f"{self.prefix.lower()}_group_id"},
+                "id": f"{self.prefix}_group_id",
+                "command": f"{self.prefix}_menu_placeholder",
+                "args": {**self.args, "item_id":f"{self.prefix}_group_id"},
                 "children": self.generate_menu()
             }
         ]
@@ -94,21 +94,22 @@ class Menu:
 def plugin_loaded():
     global MAIN_MENU_LABEL
     global PACKAGE
-    main_menu_placeholder = f"{PACKAGE}_menu_placeholder"
+    prefix = PACKAGE.lower()
+    main_menu_placeholder = f"{prefix}_menu_placeholder"
 
     def log(msg):
         global PACKAGE 
         print("["+PACKAGE+"]", msg)
 
-    menuInstance = Menu(PACKAGE.lower(),main_menu_placeholder,{"paths": ["$folder"]})
+    menuInstance = Menu(prefix,main_menu_placeholder,{"paths": ["$folder"]})
     menuInstance.write_menu()
     log(str(main_menu_placeholder))
 
 class AddreadmeMenuPlaceholderCommand(sublime_plugin.WindowCommand):
-    global PACKAGE0
-    prefix = PACKAGE
+    global PACKAGE
+    prefix = PACKAGE.lower()
     def log(self,msg):
-        print("["+self.prefix+"]", msg)
+        print("["+self.PACKAGE+"]", msg)
 
     def getSelectedPath(self, paths: List[str]) -> Optional[str]:
         selectedFolder = None
@@ -153,7 +154,7 @@ class AddreadmeMenuPlaceholderCommand(sublime_plugin.WindowCommand):
         return False
 
     def isMainMenuItemId(self, item_id):
-        if item_id.startswith(f"{self.prefix.lower()}_item_"):
+        if item_id.startswith(f"{self.prefix}_item_"):
             return True
         return False
 
@@ -179,7 +180,6 @@ class AddreadmeMenuPlaceholderCommand(sublime_plugin.WindowCommand):
                     # Open the created README.md file
                     self.window.open_file(full_readme_path)
                     sublime.status_message(f"Created README.md at: {full_readme_path}")
-                    self.window.show_quick_panel([requestedPath], None)
 
     def is_enabled(self, paths=None, item_id=None, **kwargs):
         if item_id != None:

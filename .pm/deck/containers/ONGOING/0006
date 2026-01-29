@@ -17,8 +17,8 @@ The goal of this card is to develop a sublime plugin to add README to repo(s)
 A sublime plugin to manage README is developed.
 
 # TODO:
-- [ ] 1. Develop plugin
-- [ } 2. Add some README templates
+- [x] 1. Develop plugin
+- [x} 2. Add some README templates
 
 # Reports:
 *
