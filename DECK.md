@@ -131,18 +131,17 @@ gantt
 > *
 > </details>
 
-## 001-0006
-> **AddREADME** ![status](https://img.shields.io/badge/status-NOT--STARTED-lightgrey)
+## 001-0007
+> **Add github actions to repo.** ![status](https://img.shields.io/badge/status-DONE-brightgreen)
 > <details >
 >     <summary>Details</summary>
-> The goal of this card is to develop a sublime plugin to add README to repo(s)
+> The goal of this card is to add github workflow to the repo.
 > 
 > # DOD (definition of done):
-> A sublime plugin to manage README is developed.
+> A github workflow with an action to create DECK.md is added to the repo.
 > 
 > # TODO:
-> - [ ] 1. Develop plugin
-> - [ } 2. Add some README templates
+> - [X] 1. Add an action to create/generate DECK.md
 > 
 > # Reports:
 > *
@@ -164,17 +163,18 @@ gantt
 > *
 > </details>
 
-## 001-0007
-> **Add github actions to repo.** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
+## 001-0006
+> **AddREADME** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
 > <details open>
 >     <summary>Details</summary>
-> The goal of this card is to add github workflow to the repo.
+> The goal of this card is to develop a sublime plugin to add README to repo(s)
 > 
 > # DOD (definition of done):
-> A github workflow with an action to create DECK.md is added to the repo.
+> A sublime plugin to manage README is developed.
 > 
 > # TODO:
-> - [ ] 1. Add an action to create/generate DECK.md
+> - [ ] 1. Develop plugin
+> - [ } 2. Add some README templates
 > 
 > # Reports:
 > *
