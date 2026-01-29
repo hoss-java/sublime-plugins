@@ -1,12 +1,12 @@
 ---
-Title: %GITNAME%
+Title: sublime-plugins
 Description: plans and project management sheets
 Date: 
 Robots: noindex,nofollow
 Template: index
 ---
 
-# %GITNAME%
+# sublime-plugins
 
 ## Analyzing all parts
 
