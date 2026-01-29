@@ -173,8 +173,8 @@ gantt
 > A sublime plugin to manage README is developed.
 > 
 > # TODO:
-> - [ ] 1. Develop plugin
-> - [ } 2. Add some README templates
+> - [x] 1. Develop plugin
+> - [x} 2. Add some README templates
 > 
 > # Reports:
 > *
