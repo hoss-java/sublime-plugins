@@ -127,7 +127,7 @@ gantt
 >>The goal of this card is to develop a sublime-text plugin to enhance working with Maven projects
 >>
 >>### DOD (definition of done):
->>All finings are documented.
+>>All findings are documented.
 >>
 >>### TODO :
 >>- [ ] 1. Document all findings

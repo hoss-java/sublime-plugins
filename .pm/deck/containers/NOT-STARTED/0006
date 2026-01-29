@@ -1,0 +1,24 @@
+---
+#...
+# Git-deck card header
+# OBS! DON'T REMOVE CARD HEADERS
+#...
+Title: AddREADME
+Tags:
+Creator:
+AssignedTo:
+# Time tracker settings
+tartAt:
+EndAt:
+---
+The goal of this card is to develop a sublime plugin to add README to repo(s)
+
+# DOD (definition of done):
+A sublime plugin to manage README is developed.
+
+# TODO:
+- [ ] 1. Develop plugin
+- [ } 2. Add some README templates
+
+# Reports:
+*
