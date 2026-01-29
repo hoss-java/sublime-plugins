@@ -17,7 +17,7 @@ The goal of this card is to add github workflow to the repo.
 A github workflow with an action to create DECK.md is added to the repo.
 
 # TODO:
-- [ ] 1. Add an action to create/generate DECK.md
+- [X] 1. Add an action to create/generate DECK.md
 
 # Reports:
 *
