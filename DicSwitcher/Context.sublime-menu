@@ -1,0 +1,9 @@
+[
+    {
+        "id": "select_dictionary",
+        "caption": "Select Dictionary",
+        "children": [
+            { "caption": "Loading…", "enabled": false }
+        ]
+    }
+]

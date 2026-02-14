@@ -1,0 +1,16 @@
+{
+    "config": [
+        {
+            "path": ".pm/deck",
+            "pattern": "^\\d+$",  // Regex for digits
+            "extension": "",  // No extension for Markdown
+            "syntax": "Packages/Markdown/Markdown.sublime-syntax"
+        },
+        {
+            "path": "",
+            "pattern": "",
+            "extension": ".shinc",  // Allowed extension for Shell scripts
+            "syntax": "Packages/ShellScript/Bash.sublime-syntax"
+        },
+    ]
+}

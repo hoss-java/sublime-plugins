@@ -1,0 +1,10 @@
+[
+    {
+        "keys": ["ctrl+alt+w"] ,
+        "command": "show_white_space_cycle"
+    },
+    {
+        "keys": ["ctrl+alt+h"] ,
+        "command": "toggle_highlight_multi_spaces"
+    },
+]
