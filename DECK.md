@@ -143,6 +143,26 @@ gantt
 > *
 > </details>
 
+## 001-0009
+> **Move main to develop branch** ![status](https://img.shields.io/badge/status-DONE-brightgreen)
+> <details >
+>     <summary>Details</summary>
+> The goal of this card is to change repo structure from main to develop/main.
+> 
+> # DOD (definition of done):
+> A test-system is impimented.
+> Actions are updated to support auto-merge.
+> 
+> # TODO:
+> - [x] 2. Develop a test system (an empty test system)
+> - [x] 3. update all git and github files
+> - [x] 4. Update auto merge and main marge lists
+> - [x] 5. Clean up main branch from manual merged commits
+> 
+> # Reports:
+> *
+> </details>
+
 ## 001-0004
 > **Maven** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
 > <details open>
@@ -178,24 +198,4 @@ gantt
 > > * Finalize command implementation and find a solutions or way to show command running outputs
 > > * Work on the create command, adding types, and find how to ask the name of the project
 > > * List features than can be added later, not now with this card
-> </details>
-
-## 001-0009
-> **Move main to develop branch** ![status](https://img.shields.io/badge/status-ONGOING-yellow)
-> <details open>
->     <summary>Details</summary>
-> The goal of this card is to change repo structure from main to develop/main.
-> 
-> # DOD (definition of done):
-> A test-system is impimented.
-> Actions are updated to support auto-merge.
-> 
-> # TODO:
-> - [x] 2. Develop a test system (an empty test system)
-> - [x] 3. update all git and github files
-> - [x] 4. Update auto merge and main marge lists
-> - [x] 5. Clean up main branch from manual merged commits
-> 
-> # Reports:
-> *
 > </details>
